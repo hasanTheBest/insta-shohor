@@ -17,15 +17,16 @@ const isLiked = (id) => {
 
 const addToLiked = (id) => {
   // if does not like before add liked post
-  if (likedPostsId.includes(id)) {
-    return;
-  }
+  if (likedPostsId.includes(id)) return;
 
   likedPostsId.push(id);
   showPosts(posts);
 };
 
 const reportPost = (id) => {
+  // already add to report post
+  if (reportedPostsId.includes(id)) return;
+
   reportedPostsId.push(id);
   const remainingPosts = posts.filter(
     (post) => !reportedPostsId.includes(post.id)
@@ -49,13 +50,15 @@ const switchTab = (id) => {
     document.getElementById("posts").style.display = "none";
     document.getElementById("reported").style.display = "none";
 
-    displayLikedPosts();
+    // displayLikedPosts
+    displayPosts(getLikedPosts(), "liked");
   } else {
     document.getElementById("reported").style.display = "block";
     document.getElementById("posts").style.display = "none";
     document.getElementById("liked").style.display = "none";
 
-    displayReportedPosts();
+    // displayReportedPosts
+    displayPosts(getReportedPosts(), "reported");
   }
 };
 
@@ -152,27 +155,15 @@ const showPosts = (posts) => {
   });
 };
 
-const displayLikedPosts = () => {
-  const likedPosts = getLikedPosts();
-
+const displayPosts = (posts, term) => {
   // there is no posts to show
-  if (likedPosts.length === 0) return;
+  if (posts.length === 0) return;
 
-  const likedNode = document.getElementById("liked");
+  const container = document.getElementById(term);
 
-  const posts = likedPosts
-    .map((post) => createPost(post)["outerHTML"])
-    .join("");
+  const postsStr = posts.map((post) => createPost(post)["outerHTML"]).join("");
 
-  likedNode.innerHTML = likedNode.firstElementChild.outerHTML + posts;
-};
-
-const displayReportedPosts = () => {
-  const reportedPosts = getReportedPosts();
-  reportedPosts.forEach((post) => {
-    const div = createPost(post);
-    document.getElementById("reported").appendChild(div);
-  });
+  container.innerHTML = container.firstElementChild.outerHTML + postsStr;
 };
 
 const loadPosts = async () => {
