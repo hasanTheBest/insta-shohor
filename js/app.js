@@ -154,10 +154,17 @@ const showPosts = (posts) => {
 
 const displayLikedPosts = () => {
   const likedPosts = getLikedPosts();
-  likedPosts.forEach((post) => {
-    const div = createPost(post);
-    document.getElementById("liked").appendChild(div);
-  });
+
+  // there is no posts to show
+  if (likedPosts.length === 0) return;
+
+  const likedNode = document.getElementById("liked");
+
+  const posts = likedPosts
+    .map((post) => createPost(post)["outerHTML"])
+    .join("");
+
+  likedNode.innerHTML = likedNode.firstElementChild.outerHTML + posts;
 };
 
 const displayReportedPosts = () => {
