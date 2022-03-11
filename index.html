@@ -124,27 +124,28 @@
 
       <div class="row">
         <article class="col">
-          <h4 class="mb-4">1. What does JavaScript Event Loop Do?</h4>
+          <h4 class="mb-4 mt-5">2. What does JavaScript Event Loop Do?</h4>
           <p>
-            JavaScript runs in browser environment powered by an engine. The V8
-            is the most popular JS engine which is developed by Google and used
-            by Chrome and NodeJs.
+            JavaScript is a single threaded dynamically typing language. It
+            provides Synchronous, non-blocking and Asynchronous, blocking
+            behavior. In synchronous mode JS engine takes a task and execute the
+            task and the process is going on until the completion all the task.
           </p>
           <p>
-            Browser engine’s take the raw JS code and parse line by line in the
-            direction top to bottom and produce an Abstract Syntax Tree (ABS).
-            If the given code does not follow proper syntax it throws the syntax
-            error at this stage.
+            Every browser consists of two parts the engine and a WebApi. The
+            WebApi helps performing asynchronous task such as loading file from
+            local disk, making a network request to load data.
           </p>
           <p>
-            The engine ignites interpreter to interpret Syntax Tree and produce
-            ByteCode (machine code) which is appropriate to understand by the
-            machine. Machine runs the piece of code and JavaScript performs it
-            task.
+            JavaScript’s engine handle asynchronous task by assigning it to
+            WebApi and continuing to next execution of Callstack. WebApi process
+            the assigned task and finally push the task to Callback queue.
           </p>
           <p>
-            In modern engine like V8 performs Just In Time (JIT) and optimize
-            ByteCode to produce faster to run and efficient machine code.
+            Event loop makes interaction between callback queue and callstack.
+            After running all the synchronous task callstack becomes free then
+            event loop run itself and put a task into callstack for execution
+            until the callback queue is empty.
           </p>
         </article>
       </div>
