@@ -3,13 +3,9 @@ let posts = [];
 const likedPostsId = [];
 const reportedPostsId = [];
 
-const getLikedPosts = () => {
-  return posts.filter((post) => likedPostsId.includes(post.id));
-};
+const selectById = (id) => document.getElementById(id);
 
-const getReportedPosts = () => {
-  return posts.filter((post) => reportedPostsId.includes(post.id));
-};
+const getPosts = (term) => posts.filter(({ id }) => term.includes(id));
 
 const isLiked = (id) => {
   return likedPostsId?.length && !!likedPostsId.includes(id);
@@ -20,13 +16,10 @@ const addToLiked = (id) => {
   if (likedPostsId.includes(id)) return;
 
   likedPostsId.push(id);
-  showPosts(posts);
+  showPosts(posts.filter(({ id }) => !reportedPostsId.includes(id)));
 };
 
 const reportPost = (id) => {
-  // already add to report post
-  if (reportedPostsId.includes(id)) return;
-
   reportedPostsId.push(id);
   const remainingPosts = posts.filter(
     (post) => !reportedPostsId.includes(post.id)
@@ -42,23 +35,23 @@ const displayContent = (text) => {
 
 const switchTab = (id) => {
   if (id === "posts") {
-    document.getElementById("posts").style.display = "grid";
-    document.getElementById("liked").style.display = "none";
-    document.getElementById("reported").style.display = "none";
+    selectById("posts").style.display = "grid";
+    selectById("liked").style.display = "none";
+    selectById("reported").style.display = "none";
   } else if (id === "liked") {
-    document.getElementById("liked").style.display = "block";
-    document.getElementById("posts").style.display = "none";
-    document.getElementById("reported").style.display = "none";
+    selectById("liked").style.display = "block";
+    selectById("posts").style.display = "none";
+    selectById("reported").style.display = "none";
 
     // displayLikedPosts
-    displayPosts(getLikedPosts(), "liked");
+    displayPosts(getPosts(likedPostsId), id);
   } else {
-    document.getElementById("reported").style.display = "block";
-    document.getElementById("posts").style.display = "none";
-    document.getElementById("liked").style.display = "none";
+    selectById("reported").style.display = "block";
+    selectById("posts").style.display = "none";
+    selectById("liked").style.display = "none";
 
     // displayReportedPosts
-    displayPosts(getReportedPosts(), "reported");
+    displayPosts(getPosts(reportedPostsId), id);
   }
 };
 
@@ -146,7 +139,7 @@ const createPost = ({ id, userImage, image, description, comments }) => {
 };
 
 const showPosts = (posts) => {
-  const productsContainer = document.getElementById("posts");
+  const productsContainer = selectById("posts");
   productsContainer.innerHTML = "";
 
   posts.forEach((post) => {
@@ -159,7 +152,7 @@ const displayPosts = (posts, term) => {
   // there is no posts to show
   if (posts.length === 0) return;
 
-  const container = document.getElementById(term);
+  const container = selectById(term);
 
   const postsStr = posts.map((post) => createPost(post)["outerHTML"]).join("");
 
