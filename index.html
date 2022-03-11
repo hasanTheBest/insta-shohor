@@ -95,6 +95,7 @@
         <h2 class="col text-center">Javascript Conceptual Topics</h2>
       </div>
 
+      <!-- Question 1 -->
       <div class="row">
         <article class="col">
           <h4 class="mb-4">1. How does JavaScript Work?</h4>
@@ -122,14 +123,16 @@
         </article>
       </div>
 
+      <!-- Question 2 -->
       <div class="row">
         <article class="col">
           <h4 class="mb-4 mt-5">2. What does JavaScript Event Loop Do?</h4>
           <p>
-            JavaScript is a single threaded dynamically typing language. It
-            provides Synchronous, non-blocking and Asynchronous, blocking
-            behavior. In synchronous mode JS engine takes a task and execute the
-            task and the process is going on until the completion all the task.
+            JavaScript is a single threaded dynamically typing scripting
+            language. It provides Synchronous, non-blocking and Asynchronous,
+            blocking behavior. In synchronous mode JS engine takes a task and
+            execute the task and the process is going on until the completion
+            all the task.
           </p>
           <p>
             Every browser consists of two parts the engine and a WebApi. The
@@ -146,6 +149,39 @@
             After running all the synchronous task callstack becomes free then
             event loop run itself and put a task into callstack for execution
             until the callback queue is empty.
+          </p>
+        </article>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="row">
+        <article class="col">
+          <h4 class="mb-4 mt-5">
+            3. What are the defference between Local Storage and Session
+            Storage?
+          </h4>
+          <p>
+            Local storage and Session is similar to but differs in terms of
+            saving data for next use. The Local storage read-only property of
+            the window interface allows us to access a storage object for the
+            document’s origin; the stored data is saved across browser sessions.
+          </p>
+          <p>
+            The read-only Session storage property accesses a session storage
+            object for the current origin. Data in session storage is cleared
+            when the page session ends.
+          </p>
+          <p>
+            Local storage data is specified to url protocols. Data in local
+            storage is cleared while browsing in private window and closed the
+            last tab. It may be undefined the when the file loaded from local
+            server or computer because various browser handle it different way.
+          </p>
+          <p>
+            Opening a tab or window creates new session storage while closing
+            clear the storage data. Multiple tab or window create multiple
+            instances even the url is same. But clone of the tab does not create
+            new Session storage.
           </p>
         </article>
       </div>
